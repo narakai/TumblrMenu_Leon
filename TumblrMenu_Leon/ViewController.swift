@@ -34,6 +34,8 @@ class ViewController: UIViewController {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        pushViewController 导航控制器入栈的方式切换页面
+//        presentViewController 模态切换的方式切换页面
         present(MenuViewController(), animated: true, completion: nil)
     }
 }
