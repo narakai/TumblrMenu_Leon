@@ -64,9 +64,11 @@ extension MenuTransitionManger: UIViewControllerTransitioningDelegate {
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         //动画是在container里面画
         let container = transitionContext.containerView
-        let screens: (from: UIViewController, to: UIViewController) = (transitionContext.viewController(forKey: .from)!, transitionContext.viewController(forKey: .to)!)
-        let menuVC = !presenting ? screens.from as! MenuViewController : screens.to as! MenuViewController
-        let bottomVC = !presenting ? screens.to : screens.from
+        let fromVC = transitionContext.viewController(forKey: .from)!
+        let toVC = transitionContext.viewController(forKey: .to)!
+//        let screens: (from: UIViewController, to: UIViewController) = (transitionContext.viewController(forKey: .from)!, transitionContext.viewController(forKey: .to)!)
+        let menuVC = !presenting ? fromVC as! MenuViewController : toVC as! MenuViewController
+        let bottomVC = !presenting ? toVC : fromVC
         let menuV = menuVC.view
         let bottomV = bottomVC.view
 
@@ -90,9 +92,9 @@ extension MenuTransitionManger: UIViewControllerTransitioningDelegate {
                 completion: { finished in
                     transitionContext.completeTransition(true)
                     if self.presenting {
-                        UIApplication.shared.keyWindow?.addSubview(screens.from.view)
+                        UIApplication.shared.keyWindow?.addSubview(fromVC.view)
                     }
-                    UIApplication.shared.keyWindow?.addSubview(screens.to.view)
+                    UIApplication.shared.keyWindow?.addSubview(toVC.view)
                 }
         )
     }
